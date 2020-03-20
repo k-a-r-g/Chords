@@ -1,0 +1,71 @@
+#######################################
+# Syntax Coloring Map for ChordAnalyser
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+ChordAnalyser	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+addNote	KEYWORD2
+removeNote	KEYWORD2
+getChord	KEYWORD2
+getPseudoChord	KEYWORD2
+getName	KEYWORD2
+
+#######################################
+# Structures (KEYWORD3)
+#######################################
+
+Chord	KEYWORD3
+ChordName	KEYWORD3
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+NO_CHORD	LITERAL1
+ROOT_C	LITERAL1
+ROOT_C_SHARP	LITERAL1
+ROOT_D_FLAT	LITERAL1
+ROOT_D	LITERAL1
+ROOT_D_SHARP	LITERAL1
+ROOT_E_FLAT	LITERAL1
+ROOT_E	LITERAL1
+ROOT_F	LITERAL1
+ROOT_F_SHARP	LITERAL1
+ROOT_G_FLAT	LITERAL1
+ROOT_G	LITERAL1
+ROOT_G_SHARP	LITERAL1
+ROOT_A_FLAT	LITERAL1
+ROOT_A	LITERAL1
+ROOT_A_SHARP	LITERAL1
+ROOT_B_FLAT	LITERAL1
+ROOT_B	LITERAL1
+
+MAJOR_TRIAD	LITERAL1
+MINOR_TRIAD	LITERAL1
+AUGMENTED_TRIAD	LITERAL1
+DIMINISHED_TRIAD	LITERAL1
+MAJOR_SIXTH	LITERAL1
+MINOR_SIXTH	LITERAL1
+DOMINANT_SEVENTH	LITERAL1
+MAJOR_SEVENTH	LITERAL1
+AUGMENTED_SEVENTH	LITERAL1
+MINOR_SEVENTH	LITERAL1
+MAJOR_SIXTH	LITERAL1
+MINOR_MAJOR_SEVENTH	LITERAL1
+DIMINISHED_SEVENTH	LITERAL1
+HALF_DIMINISHED_SEVENTH	LITERAL1
+
+ROOT_POSITION	LITERAL1
+INVERSION_1	LITERAL1
+INVERSION_2	LITERAL1
+INVERSION_3	LITERAL1
+
+PSEUDO_CHORD	LITERAL1
