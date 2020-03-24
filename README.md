@@ -1,4 +1,4 @@
-# ChordAnalyser
+# Chords
 Arduino library to generate and analyse musical chords from midi note numbers. Functions to annotate chords and notes according to standards used in popular music are included:
 
 Assuming enharmonicity, Sharp accidentals will typically used instead of flats.
