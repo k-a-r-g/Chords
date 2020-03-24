@@ -6,7 +6,7 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-ChordAnalyser	KEYWORD1
+Chords	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -14,9 +14,11 @@ ChordAnalyser	KEYWORD1
 
 addNote	KEYWORD2
 removeNote	KEYWORD2
-getChord	KEYWORD2
-getPseudoChord	KEYWORD2
-getName	KEYWORD2
+generateChord	KEYWORD2
+analyseChord	KEYWORD2
+getChordName	KEYWORD2
+getChordString	KEYWORD2
+getNoteString	KEYWORD2
 
 #######################################
 # Structures (KEYWORD3)
@@ -24,6 +26,7 @@ getName	KEYWORD2
 
 Chord	KEYWORD3
 ChordName	KEYWORD3
+Notes	KEYWORD3
 
 #######################################
 # Constants (LITERAL1)
