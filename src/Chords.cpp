@@ -64,43 +64,53 @@ Chord Chords::analyseChord(boolean pseudoChord) {
   uint8_t n = 0;	
 
   // Analyse (pure?) chords (consecutive notes)
-  if (!pseudoChord) {
-    while (n<128) {                      				            // cycle through all notes
-      if (notes[n])
-	    if (analyse(&notes[n], &_chord)  != NO_CHORD) break;	    // check if a chord structure follows
-	  n++;
-    }
-    if (n<127) {
-	  _chord.root = ((n+_chord.root)%12)+1;
-      if (_chord.position) _chord.octave = (n/12)-1;
-	  else _chord.octave = (n/12)-1;
-    }      
+  while (n<128) {                      				            // cycle through all notes
+    if (notes[n])
+	  if (analyse(&notes[n], &_chord) != NO_CHORD) break;	    // check if a chord structure follows
+	n++;
   }
   
+  if (n<127) {	
+    chordNotes.pseudochord = false;                             // save the identified notes in chordNotes
+  	setChordNotes(n, &_chord);
+	 
+	_chord.root = ((n+_chord.root)%12)+1;                       // set the return variables
+	_chord.octave = (n/12)-1;
+	return _chord;  
+  }
+
   // Analyse pseudo chords (notes spread over all octaves)  
-  else {
-    boolean oneOctave[24];				            // yes, that is two octaves, but we will circle through the notes of only the first 
+  else if (pseudoChord) {
+	n = 0;
+    boolean oneOctave[24];				        				// yes, that is two octaves, but we will circle through the notes of only the first 
 	for (uint8_t i=0; i<24; i++) oneOctave[i] = false;
 	
-	while (n<128) {                                   // cycle through all notes and condense them into one octaves
+	while (n<128) {                                   			// cycle through all notes and condense them into one octaves
 	  if (notes[n]) oneOctave[n%12] = true;
 	  n++;
 	}	
 	n = 0;	
-	while (n<12) {                                    // check for chord structures again
+	while (n<12) {                                    			// check for chord structures again
 	  if (oneOctave[n]) 
 		if (analyse(&oneOctave[n], &_chord) != NO_CHORD) break;
 	  n++;
 	}
 	if (n<12) {
+	  chordNotes.pseudochord = true;                             // save the identified notes in chordNotes
+	  setChordNotes(n, &_chord);
+		
 	  _chord.root = n + _chord.root + 1;
       _chord.position = PSEUDO_CHORD;
 	  _chord.octave = PSEUDO_CHORD;
 	}	
   }
-  
   return _chord;
   
+}
+
+
+Notes Chords::getChordNotes(void) {  	
+  return chordNotes;
 }
 
 
@@ -188,6 +198,24 @@ ChordName Chords::getChordName(Chord chord) {
 
 
 
+void Chords::setChordNotes(uint8_t baseNote, Chord *chord) {  
+  if (chord->quality < NUM_TRIADS) {
+    chordNotes.numNotes = 3;
+    chordNotes.note[0] = baseNote+chord->root-TRIADS[chord->quality][chord->position][2];
+    chordNotes.note[1] = chordNotes.note[0]+TRIADS[chord->quality][chord->position][0];
+    chordNotes.note[2] = chordNotes.note[0]+TRIADS[chord->quality][chord->position][1];
+  }
+  else {	
+    chordNotes.numNotes = 4;
+    chordNotes.note[0] = baseNote+chord->root-TETRADS[chord->quality-NUM_TRIADS][chord->position][3];
+    chordNotes.note[1] = chordNotes.note[0]+TETRADS[chord->quality-NUM_TRIADS][chord->position][0];
+    chordNotes.note[2] = chordNotes.note[0]+TETRADS[chord->quality-NUM_TRIADS][chord->position][1];
+    chordNotes.note[3] = chordNotes.note[0]+TETRADS[chord->quality-NUM_TRIADS][chord->position][2];
+  }		
+}
+
+
+
 String Chords::getChordString(Chord chord) {
   ChordName chordName;
   chordName = getChordName(chord);
@@ -217,7 +245,7 @@ uint8_t Chords::analyse(boolean *notes, Chord *chord) {
         chord->root = TETRADS[_quality][_position][3]; 
   		chord->quality = _quality+NUM_TRIADS; 
   		chord->position = _position; 
-  		return true;
+        return true;
   	  }
     }
   }
